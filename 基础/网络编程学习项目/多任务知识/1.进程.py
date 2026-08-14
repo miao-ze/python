@@ -1,6 +1,7 @@
 # 【多进程的使用】
 # 1.导入进程包
 import multiprocessing
+from multiprocessing import Process,Lock
 import time
 import os       #用来获取进程编号用的
 '''一:实例一（主进程执行唱歌，创建子进程执行跳舞任务）'''
@@ -104,16 +105,19 @@ import os       #用来获取进程编号用的
 #
 #
 # # 进程的注意点：
-# # 【1.进程之间不共享全局变量】
+# 【1.进程之间不共享全局变量】
+# print('--------开始-------')
 # aal_list = []   #定义全局变量列表
 # def add_list():
 #     for i in range(3):
 #         aal_list.append(i)
 #         print('添加:',i)
-#         time.sleep(0.4)
-#     print('添加完成：',aal_list)
+#     print('子进程一添加完成：',aal_list)
+#
+#
 # def read_list():
-#     print(aal_list)
+#     for i in range(3):
+#         print('子进程二：',aal_list)
 # '''
 # # 提示:对应linux和mac主进程执行的代码不会进程拷贝,但是对window系统来说主进程执行的代码也会进行拷贝执行,
 # # 对应window来说创建子进程的代码如果进程拷贝执行相当于递归无限制进行创建子进程,会报错.
@@ -125,9 +129,54 @@ import os       #用来获取进程编号用的
 #     real_list_process = multiprocessing.Process(target=read_list)  #读取数据
 #     #启动进程执行对应的任务
 #     add_list_process.start()
-#     add_list_process.join()     #等上一个子进程结束在执行下一个进程
+#     # add_list_process.join()     #等上一个子进程结束在执行下一个进程
 #     real_list_process.start()
-#     print(aal_list)
+#     print('主进程',aal_list)
+
+
+class AddProcessingList(multiprocessing.Process):
+    def __init__(self,lock):
+        super().__init__()
+        self._lock = lock
+
+    def run(self):
+        time.sleep(1)
+        for i in range(3):
+            self._lock.acquire()
+            print('子进程一：加数据：',end=' ')
+            global_list.append(i)
+            print(global_list)
+            self._lock.release()
+
+class ReadProcessingList(multiprocessing.Process):
+    def __init__(self,lock):
+        super().__init__()
+        self._lock = lock
+
+    def run(self):
+
+        for i in range(3):
+            self._lock.acquire()
+            print('子进程二：读取：',end=' ')
+            print(global_list)
+            self._lock.release()
+
+
+print('----主进程开始-----')
+global_list = []
+
+if __name__ == '__main__':
+    lock = Lock()
+    add_process = AddProcessingList(lock)
+    read_process = ReadProcessingList(lock)
+
+    add_process.start()
+    read_process.start()
+
+    add_process.join()
+    read_process.join()
+
+    print('主进程结束')
 
 
 # 【2.主进程会等待所有的子进程执行完成以后在退出】
@@ -143,21 +192,21 @@ import os       #用来获取进程编号用的
 
 
 #【3.强制退出的方法】
-def i():
-    for i in range(10):
-        print("执行中........")
-        time.sleep(0.2)
-if __name__ == '__main__':
-    i_process = multiprocessing.Process(target=i,daemon=True)
-    current_main = multiprocessing.current_process()
-    print(i_process)
-    print(current_main)
-    # i_process.daemon = True #(方法一：）把子进程设置为守护主进程,以后主进程退出直接销毁)
-    i_process.start()
-    time.sleep(0.5)
-    # i_process.terminate()     #(方法二：)退出主进程之前，先让子进程进行销毁
-    print('over')   #只有在子进程结束是才会执行over
-    i_process.terminate()
+# def i():
+#     for i in range(10):
+#         print("执行中........")
+#         time.sleep(0.2)
+# if __name__ == '__main__':
+#     i_process = multiprocessing.Process(target=i,daemon=True)
+#     current_main = multiprocessing.current_process()
+#     print(i_process)
+#     print(current_main)
+#     # i_process.daemon = True #(方法一：）把子进程设置为守护主进程,以后主进程退出直接销毁)
+#     i_process.start()
+#     time.sleep(0.5)
+#     # i_process.terminate()     #(方法二：)退出主进程之前，先让子进程进行销毁
+#     print('over')   #只有在子进程结束是才会执行over
+#     i_process.terminate()
 
 
 
