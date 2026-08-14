@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>信息中心</title>
+    <style>
+        .div1{font-size: 33px;color: whitesmoke;background-color: black;
+              padding: 10px;margin-bottom: 20px;}
+        .div1 div{display: inline;}
+
+        .div2{padding-left:180px;}
+        .div2 th{padding: 35px;font-size: 30px;}
+        td{text-align: center;}
+
+    </style>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            var $table = $(".table1")
+            $.ajax({
+                url:"moban3_json_date.html",
+                type:"GET",
+                dataType:"JSON",
+                success:function(dates){
+                    console.log(typeof(dates))
+
+                    for (i in dates){
+
+                        var $value = dates[i]
+                        console.log($value)
+                        var $date = '<tr>'+
+                                        '<td>' + $value.id + '</td>' +
+                                        '<td>' + $value.code + '</td>' +
+                                        '<td>' + $value.name + '</td>' +
+                                        '<td>' + $value.sex + '</td>' +
+                                        '<td>' + $value.class_name + '</td>' +
+                                        '<td>' + $value.height + '</td>' +
+                                        '<td>' + $value.age + '</td>' +
+                                        '<td>' + $value.message + '</td>' +
+                                    '</tr>'
+                        $table.append($date)
+                    }
+                },
+                error:function(){
+                    alert("ajax请求失败")
+                },
+                async:true
+
+
+            })
+
+        })
+
+
+
+
+
+
+
+
+        $(function(){
+
+            var $float = $(".div1 div")
+            var $tr = $("tr")
+            $float.mouseover(function(){
+                $(this).css({"background":"rgb(150, 144, 144)"})
+            })
+            $float.mouseout(function(){
+                $(this).css({"background":"black"})
+            })
+
+            $tr.mouseover(function(){
+                $(this).css({"background":"rgb(232, 228, 228)"})
+            })
+            $tr.mouseout(function(){
+                $(this).css({"background":"whitesmoke"})
+            })
+        })
+    </script>
+</head>
+<body style="padding: 5px; border: 1px solid wheat;">
+    <div class="div1">
+        <div>校园官网</div>
+        <div>学生信息</div>
+        <div>个别咨询</div>
+    </div>
+    <hr>
+    <div class="div2">
+        <table class="table1">
+            <tr class="tr1">
+                <th>ID</th>
+                <th>编号</th>
+                <th>姓名</th>
+                <th>性别</th>
+                <th>班级</th>
+                <th>身高</th>
+                <th>年龄</th>
+                <th>个人信息</th>
+            </tr>
+
+            <tr>
+                <td>01</td>
+                <td>2032</td>
+                <td>缪泽平</td>
+                <td>男</td>
+                <td>十七班</td>
+                <td>1.62</td>
+                <td>20</td>
+                <td>获取奖学金</td>
+            </tr>
+
+
+        </table>
+
+    </div>
+</body>
+</html>

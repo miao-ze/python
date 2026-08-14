@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>HTML基础学习</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1 { color: #2c3e50; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .section { margin-bottom: 20px; padding: 15px; border: 1px solid #ddd; border-radius: 5px;}
+        code { background-color: #f4f4f4; padding: 2px 5px; border-radius: 3px; }
+        ul { list-style-type: disc; padding-left: 20px; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+    </style>
+    <script src="jquery-1.12.4.min.js"></script>
+    
+    <script>
+        $(function(){
+            var $img = $("#img1");
+            $img.prop({"src":"yinghuazhuang.jpg"})
+
+        })
+        
+    </script>
+    
+</head>
+<body>
+    <div class="container">
+        <h1>HTML基础学习</h1>
+        
+        <div class="section">
+            <h2>标题标签</h2>
+            <h1>一级标题</h1>
+            <h2>二级标题</h2>
+            <h3>三级标题</h3>
+        </div>
+        
+        <div class="section">
+            <h2>段落与文本格式</h2>
+            <p>这是一个普通段落。</p>
+            <p><strong>粗体文本</strong> <em>斜体文本</em> 
+            <u>下划线</u> <s>删除线</s></p>
+        </div>
+        
+        <div class="section">
+            <h2>列表</h2>
+            <h3>无序列表</h3>
+            <ul>
+                <li>项目1</li>
+                <li>项目2</li>
+                <li>项目3</li>
+            </ul>
+            <h3>有序列表</h3>
+            <ol>
+                <li>第一步</li>
+                <li>第二步</li>
+                <li>第三步</li>
+            </ol>
+        </div>
+        
+        <div class="section">
+            <h2>链接与图片</h2>
+            <a href="https://baike.baidu.com/item/%E6%A8%B1%E8%8A%B1%E5%BA%84%E7%9A%84%E5%AE%A0%E7%89%A9%E5%A5%B3%E5%AD%A9/35197">樱花庄的宠物女孩</a>
+            <img alt="图片加载失败" height="200" width="300" id="img1">
+            
+        </div>
+        
+        <div class="section">
+            <h2>表格</h2>
+            <table>
+                <tr>
+                    <th>姓名</th>
+                    <th>年龄</th>
+                    <th>职业</th>
+                </tr>
+                <tr>
+                    <td>张三</td>
+                    <td>28</td>
+                    <td>工程师</td>
+                </tr>
+                <tr>
+                    <td>李四</td>
+                    <td>32</td>
+                    <td>设计师</td>
+                </tr>
+            </table>
+        </div>
+        
+        <div class="section">
+            <h2>表单</h2>
+            <form>
+                <label>姓名: <input type="text" /></label><br>
+                <label>邮箱: <input type="email" /></label><br>
+                <label>性别: 
+                    <input type="radio" name="gender" />男
+                    <input type="radio" name="gender" />女
+                </label><br>
+                <button type="submit">提交</button>
+            </form>
+        </div>
+        
+        <div class="section">
+            <h2>HTML元素</h2>
+            <p>HTML由各种元素组成，如：</p>
+            <code>&lt;div&gt;</code> - 块级容器<br>
+            <code>&lt;span&gt;</code> - 内联容器<br>
+            <code>&lt;header&gt;</code> - 页面头部<br>
+            <code>&lt;footer&gt;</code> - 页面底部
+        </div>
+    </div>
+</body>
+</html>

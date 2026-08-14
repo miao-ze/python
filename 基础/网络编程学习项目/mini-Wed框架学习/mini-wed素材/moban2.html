@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学生信息</title>
+    <style>
+        body {max-width: auto;max-height: auto; border: 1px solid whitesmoke;}
+        .div1{display: flex;padding: 10px;margin: 10px;background: rgb(19, 18, 18);margin-bottom: 20px;}
+        .div1 div {margin: 20px;border: 1px solid black;font-size: 30px;color: white;}
+
+        /* .tr1 th{padding: 20px;font-size: 30px;text-align: center;} */
+        /* table{padding: 15px;border: 1px solid whitesmoke;padding-right: 215px;}
+        tr{height: 50px;} */
+
+
+        tr{text-align: center;text-indent: 100px;}
+        tr td{padding: 20px;}
+
+    </style>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>
+        
+        $(function(){
+            var $div1 = $(".div1 div")
+            $div1.mouseover(function(){
+                $(this).css({'background':'rgb(63, 57, 57)'})
+            })
+
+            $div1.mouseout(function(){
+                $(this).css({'background':'black'})
+
+            })
+
+    </script>
+</head>
+
+<body>
+    <div class="div1">
+        <div>系统主页</div>
+        <div>信息质询</div>
+        <div>个人信息</div>
+    </div>
+
+
+    <div class="div2"><hr><hr></div>
+
+
+    <table style="border:1px solid black;
+    border-collapse: separate; border-spacing: 10px; padding-left: 20px;">
+
+            <tr style="font-size: 30px;">
+                <th>ID</th>
+                <th>编号</th>
+                <th>姓名</th>
+                <th>性别</th>
+                <th>班级</th>
+                <th>身高</th>
+                <th>年龄</th>
+            </tr>
+
+            {/%comment%/}
+    </table>
+</body>
+</html>

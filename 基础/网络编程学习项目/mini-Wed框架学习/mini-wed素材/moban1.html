@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+                /* 给包含 p 标签的 div 设置 flex 布局 */
+        .div1 {
+        display: flex;
+        /* 让子元素水平排列，默认就是 row，可省略 */
+        flex-direction: row; 
+        /* 若空间不够，子元素是否换行，nowrap 不换行 */
+        flex-wrap: nowrap; 
+        /* 子元素之间的间距等，可按需调整，比如 space-between 让元素均匀分布 */
+        justify-content: flex-start; 
+        background: black;
+        margin-bottom: 50px;
+        }
+
+        /* 去除 p 标签默认的 margin 等，避免影响布局 */
+        p {
+        margin: 0; 
+        }
+
+        /* 让 h2 标签之间有合适间距，也可根据需求调整 */
+        h2 {
+        color: white;
+        margin-right: 20px; 
+        text-indent: 10px;
+        font-size: 20px;
+        }
+
+        th{padding: 20px;}
+
+        .div2{text-align: center;}
+
+
+
+    </style>
+
+        <script src="https://cdn.bootcdn.net/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script>
+            $(function(){
+                var $div2 = $(".div2")
+                $h2.mouseover(function(){
+                    $(this).css({"background":"red"})
+                })
+
+            })
+    </script>
+        
+</head>
+<body>
+    <div class="div1">
+        <p>
+            <h2>选股系统</h2>
+            <h2>股票信息</h2>
+            <h2>个人信息</h2>
+        </p>
+    </div>
+    <hr>
+    <div class="div2">
+        <table>
+            <tr>
+                <th style="text-indent: 200px;">序号</th>
+                <th>股票代码</th>
+                <th>股票简称</th>
+                <th>涨跌幅</th>
+                <th>换手率</th>
+                <th>最新价（元）</th>
+                <th>前期高点</th>
+                <th>前期高点日期</th>
+                <th>添加自选</th>
+            </tr>
+            {/%comment/%}
+        </table>
+    </div>
+</body>
+</html>
