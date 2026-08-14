@@ -56,18 +56,15 @@
 from array import array
 import random
 
-array1 = array('d',(random.random() for i in range(10**6)))
-with open('资料文件\\floats.bin', 'wb') as f:
-    array1.tofile(f)
-
-array2 = array('d')
-with open('资料文件\\floats.bin', 'rb') as f:
-    array2.fromfile(f,10 ** 6)
-
-print(array2[-1])
-
-
-
+# array1 = array('d',(random.random() for i in range(10**6)))
+# with open('资料文件\\floats.bin', 'wb') as f:
+#     array1.tofile(f)
+#
+# array2 = array('d')
+# with open('资料文件\\floats.bin', 'rb') as f:
+#     array2.fromfile(f,10 ** 6)
+#
+# print(array2[-1])
 
 
 
