@@ -1,3 +1,7 @@
+import os
+from array import array
+import random
+
 
 # list1 = ["_"] * 3
 
@@ -6,9 +10,11 @@
 # for i in range(3):
 #     list2.append(list1)
 
+
 # print(list2)
 # list2[1][1] = 'x'
 # print(list2)
+
 
 # list3 = []
 # for i in range(3):
@@ -18,6 +24,7 @@
 # print(list3)
 # list3[1][1] = 'X'
 # print(list3)
+
 
 # list5 = [ ['_'] * 3 for i in range(3)]
 # print(list5)
@@ -33,6 +40,7 @@
 # print(id(str1))
 # str1 += '2'
 # print(id(str1))
+
 
 # try:
 #     tuple1 = (1,2,['1','2'])
@@ -52,10 +60,6 @@
 # print(list7)
 
 
-
-from array import array
-import random
-
 # array1 = array('d',(random.random() for i in range(10**6)))
 # with open('资料文件\\floats.bin', 'wb') as f:
 #     array1.tofile(f)
@@ -67,13 +71,16 @@ import random
 # print(array2[-1])
 
 
+# generator_num = ((i,a) for i in range(1000) for a in range(1000,2000))
+# print(next(generator_num))
 
 
-
-
-
-
-
+tuple1 = (1,2,3,4,5)
+array1 = array('h',tuple1)
+print(array1)
+view1 = memoryview(array1)
+view1.cast('B')
+print(view1)
 
 
 
