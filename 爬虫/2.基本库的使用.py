@@ -13,6 +13,8 @@ url1_bi = 'https://www.bilibili.com/'
 url2_lz = 'https://lzacg.cc/'
 url3_bu = 'https://www.baidu.com'
 url4_mv = 'https://ssr1.scrape.center/'
+url_hp_p = 'https://www.httpbin.org/post'
+url_hp_g = 'https://www.httpbin.org/get'
 
 def save_file(file,data):
     with open(file,'w',encoding='utf-8') as f:
@@ -266,9 +268,10 @@ import re
 # print(res.read().decode('utf-8'))
 
 
-
-
-
+data = {'name':'苗泽','age':21}
+res = requests.post(url_hp_p,data=data)
+print(res.json())
+print(res.text)
 
 
 
