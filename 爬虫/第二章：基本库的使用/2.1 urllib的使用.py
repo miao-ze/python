@@ -6,8 +6,8 @@ from urllib.request import HTTPPasswordMgrWithDefaultRealm,HTTPBasicAuthHandler,
 from urllib.request import HTTPCookieProcessor
 from urllib import error
 from urllib import robotparser
-
-
+import urllib3
+from requests import Request
 
 url1_bi = 'https://www.bilibili.com/'
 url2_lz = 'https://lzacg.cc/'
@@ -224,56 +224,3 @@ def save_file(file,data):
 # bilbil_robots.parse(result2)
 # result = bilbil_robots.can_fetch('BaiduSpider','https://www.bilibili.com/index.html')
 # print(result)
-
-
-
-
-"""requests库"""
-import requests
-import json
-import re
-
-# res = requests.get(url3_bu)
-# print(res.status_code)
-# print(type(res.text))
-# print(res.cookies)
-# print(res.content)
-
-
-# res2 = requests.get('https://www.httpbin.org/get',params={'name':'阿斯顿','age':32})
-# print(res2.json())
-# print(res2.text)
-
-
-# res = requests.get(url4_mv)
-# pattern = re.compile('<h2.*?>(.*?)</h2.*?>',re.S)
-# titles = re.findall(pattern,res.text)
-# print(titles)
-
-
-# res2 = requests.get(url4_mv)
-# print(res2.text)
-# print()
-# print(res2.content)
-
-
-# headers = {
-#     'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36 Edg/146.0.0.0'
-# }
-# res = requests.get(url1_bi,headers=headers)
-# print(res.text)
-# save_file('资料文件\\2.html',res.text)
-# data = request.Request(url=url1_bi,headers=headers,method='GET')
-# res = request.urlopen(data)
-# print(res.read().decode('utf-8'))
-
-
-data = {'name':'苗泽','age':21}
-res = requests.post(url_hp_p,data=data)
-print(res.json())
-print(res.text)
-
-
-
-
-
