@@ -11,13 +11,24 @@ url_hp_p = 'https://www.httpbin.org/post'
 url_hp_g = 'https://www.httpbin.org/get'
 
 
-import re
-res = requests.get(url_lz)
-# 改用 re.search，加上非贪婪模式 .*?，开启单行模式 DOTALL
-result = re.search(r'<img.*?>', res.text, re.S)
-if result:
-    print(result.group())
-else:
-    print("没有找到图片标签")
+def save_file(file,data):
+    with open(file,'w',encoding='utf-8') as f:
+        f.write(data)
 
-    v bnkmkjn
+# res = requests.get(url_lz)
+# save_file('..\\资料文件\\lzacg.html',res.text)
+# result = re.search('<title>.*?</title>.*?>',res.text,re.S)
+# print(result.group())
+
+
+# res = requests.get(url_lz)
+# data = res.text
+# results = re.findall(r'<a sid=.*?>.*?</a>',data,re.S)
+# for result in results:
+#     print(result)
+
+
+# with open('../资料文件/lzacg.html', 'r', encoding='utf-8') as f:
+#     data = f.read()
+#     result = re.sub(r'\S+',' ',data,re.S)
+#     print(result)
