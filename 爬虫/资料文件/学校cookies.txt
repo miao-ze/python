@@ -1,4 +1,59 @@
-# Netscape HTTP Cookie File
-# http://curl.haxx.se/rfc/cookie_spec.html
-# This is a generated file!  Do not edit.
+<div data-v-7f856186="" class="el-card item m-t is-hover-shadow">
+        <div class="el-card__body">
+          <div data-v-7f856186="" class="el-row">
+            <div data-v-7f856186="" class="el-col el-col-24 el-col-xs-8 el-col-sm-6 el-col-md-4">
+              <a data-v-7f856186="" href="/detail/1" class="">
+                <img data-v-7f856186="" src="https://p0.meituan.net/movie/ce4da3e03e655b5b88ed31b5cd7896cf62472.jpg@464w_644h_1e_1c" class="cover">
+              </a>
+            </div>
+            <div data-v-7f856186="" class="p-h el-col el-col-24 el-col-xs-9 el-col-sm-13 el-col-md-16">
+              <a data-v-7f856186="" href="/detail/1" class="name">
+                <h2 data-v-7f856186="" class="m-b-sm">霸王别姬 - Farewell My Concubine</h2>
+              </a>
+              <div data-v-7f856186="" class="categories">
 
+                <button data-v-7f856186="" type="button" class="el-button category el-button--primary el-button--mini">
+                  <span>剧情</span>
+                </button>
+
+                <button data-v-7f856186="" type="button" class="el-button category el-button--primary el-button--mini">
+                  <span>爱情</span>
+                </button>
+
+              </div>
+              <div data-v-7f856186="" class="m-v-sm info">
+                <span data-v-7f856186="">中国内地、中国香港</span>
+                <span data-v-7f856186=""> / </span>
+                <span data-v-7f856186="">171 分钟</span>
+              </div>
+              <div data-v-7f856186="" class="m-v-sm info">
+
+                <span data-v-7f856186="">1993-07-26 上映</span>
+
+              </div>
+            </div>
+            <div data-v-7f856186="" class="el-col el-col-24 el-col-xs-5 el-col-sm-5 el-col-md-4">
+              <p data-v-7f856186="" class="score m-t-md m-b-n-sm">
+                9.5</p>
+              <p data-v-7f856186="">
+              </p><div data-v-7f856186="" role="slider" aria-valuenow="4.75" aria-valuetext="" aria-valuemin="0" aria-valuemax="5" tabindex="0" class="el-rate">
+
+                <span class="el-rate__item" style="cursor: auto;"><i class="el-rate__icon el-icon-star-on" style="color: rgb(247, 186, 42);"></i>
+                </span>
+
+                <span class="el-rate__item" style="cursor: auto;"><i class="el-rate__icon el-icon-star-on" style="color: rgb(247, 186, 42);"></i>
+                </span>
+
+                <span class="el-rate__item" style="cursor: auto;"><i class="el-rate__icon el-icon-star-on" style="color: rgb(247, 186, 42);"></i>
+                </span>
+
+                <span class="el-rate__item" style="cursor: auto;"><i class="el-rate__icon el-icon-star-on" style="color: rgb(247, 186, 42);"></i>
+                </span>
+
+                <span class="el-rate__item" style="cursor: auto;"><i class="el-rate__icon el-icon-star-on" style="color: rgb(239, 242, 247);"><i class="el-rate__decimal el-icon-star-on" style="color: rgb(247, 186, 42); width: 75.0%;"></i></i>
+                </span>
+              </div>
+              <p></p></div>
+          </div>
+        </div>
+      </div>

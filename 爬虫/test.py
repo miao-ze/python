@@ -248,14 +248,20 @@ import time
 #     pool.join()
 #     print ("Subprocess done.")
 
-print('test')
+# print('test')
+
+# import re
+#
+# with open('资料文件\\1.html','r',encoding='utf-8') as f:
+#     data = f.read()
+#     result = re.search(r'<a\s.*?href="(.*?)"\sclass="name">',data)
+#     print(result.group(1))
 
 
+import requests
 
+headers = {'Cookies':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36 Edg/146.0.0.0'}
+res = requests.get('https://www.nekogal.com/page/1',headers=headers)
 
-
-
-
-
-
-
+with open('资料文件\\NekoGAL.html','w',encoding='utf-8') as f:
+    f.write(res.text)

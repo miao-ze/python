@@ -1,8 +1,3 @@
-# Netscape HTTP Cookie File
-# http://curl.haxx.se/rfc/cookie_spec.html
-# This is a generated file!  Do not edit.
-
-.baidu.com	TRUE	/	FALSE	3934328067	BIDUPSID	5DA2B8162AD6DABEB427F498220F2F62
-.baidu.com	TRUE	/	FALSE	3934328067	PSTM	1786844421
-.baidu.com	TRUE	/	FALSE	1818380420	BAIDUID	5DA2B8162AD6DABEB427F498220F2F62:FG=1
-.baidu.com	TRUE	/	TRUE	1818380420	BAIDUID_BFESS	5DA2B8162AD6DABEB427F498220F2F62:FG=1
+<a data-v-7f856186="" href="/detail/1" class="name">
+                <h2 data-v-7f856186="" class="m-b-sm">霸王别姬 - Farewell My Concubine</h2>
+              </a>
