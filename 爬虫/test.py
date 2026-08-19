@@ -259,9 +259,20 @@ import time
 
 
 import requests
+import re
 
 headers = {'Cookies':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36 Edg/146.0.0.0'}
-res = requests.get('https://www.nekogal.com/page/1',headers=headers)
+res = requests.get('https://lzacg.cc/category/galgame/page/1',headers=headers)
 
-with open('资料文件\\NekoGAL.html','w',encoding='utf-8') as f:
-    f.write(res.text)
+# with open('资料文件\\lzacg.html','w',encoding='utf-8') as f:
+#     f.write(res.text)
+
+url_picture_name = re.compile(r'<posts.*?<a.*?target="_blank".*?href="(.*?)">.*?<img.*?data-src="(.*?)"\salt="(.*?)".*?>',re.S)
+
+if __name__ == "__main__":
+    with open('资料文件\\lzacg.html', 'r', encoding='utf-8') as f:
+        data = f.read()
+        result = re.search(url_picture_name,data)
+        print(result.group(1))
+        print(result.group(2))
+        print(result.group(3))
