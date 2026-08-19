@@ -19,7 +19,7 @@ headers = {
 }
 
 base_url = 'https://lzacg.cc'
-total_page_num = 10
+total_page_num = 66
 
 
 def list_url(page):
@@ -39,10 +39,14 @@ def parse_list_url(page_url):
     try:
         res = requests.get(page_url,headers=headers)
     except error.HTTPError as e:
+        if res.status_code == requests.codes.not_found:
+            logging.info('所有页面已全部采集完毕')
+            return None
         logging.error(f'请求失败：{e.reason}')
     else:
         logging.info(f'网站解析成功')
         return res.text
+
 
 def parse_list_html(html):
     """
@@ -66,7 +70,14 @@ def parse_list_html(html):
         logging.info('数据生成成功.....（待保存到文件中）')
         yield list_game
 
+
 def save_url_data(list_game,page):
+    """
+    将每一个以业为单位，将每一页的galgame以json格式保存，每一页对应一个json文件
+    :param list_game: galgame数据
+    :param page: 页数
+    :return: 游戏的名字和url详细地址
+    """
     os.chdir('..\\资料文件')
     None if os.path.exists('量子acg平台数据(上)') else os.makedirs('量子acg平台数据(上)')
 
@@ -76,9 +87,37 @@ def save_url_data(list_game,page):
         logging.error('文件保存失败')
         return None
     else:
-        logging.info('文件保存成功')
+        logging.info('文件(上部)保存成功')
 
 
+# def parse_detail_url(detail_url):
+#     """
+#     :param detail_url: galgame详细页面
+#     :return: 详细页面的html
+#     """
+#     try:
+#         res = requests.get(detail_url,headers=headers)
+#     except error.HTTPError as e:
+#         logging.error(f'请求失败：{e.reason}')
+#     else:
+#         logging.info(f'galgame游戏解析成功')
+#         return res.text
+
+
+# 此处应使用xpath来进行数据的提取
+# def parse_detail_html(html):
+#     pass
+
+
+
+# def main1(page):
+#     page_url = list_url(page)
+#     page_html = parse_list_url(page_url)
+#     if page_html == None:
+#         return False
+#     game_list = list(parse_list_html(page_html))
+#     save_url_data(game_list,page)
+#     return True
 
 
 
@@ -88,6 +127,7 @@ if __name__ == "__main__":
         page_html = parse_list_url(page_url)
         game_list = list(parse_list_html(page_html))
         save_url_data(game_list,page)
+
 
 
 
