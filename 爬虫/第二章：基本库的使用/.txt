@@ -7,7 +7,6 @@ import time
 import requests
 from urllib import parse,error
 import multiprocessing
-import lxml
 
 
 logging.basicConfig(
@@ -35,9 +34,8 @@ def list_url(page):
         return page_url
 
 
-
 def parse_list_url(page_url):
-    """对列表页请求并进行分析,返回html列表页的结果数据"""
+    """对列表页请求并进行分析,返回html数据"""
     try:
         res = requests.get(page_url,headers=headers)
     except error.HTTPError as e:
@@ -46,12 +44,10 @@ def parse_list_url(page_url):
         logging.info(f'网站解析成功')
         return res.text
 
-
-
-def parse_list_html(html,page):
+def parse_list_html(html):
     """
         返回的是这个列表网站的所有galgame数据，大概16个
-        :return 每个gal游戏的名字、图片、链接地址
+        :return galgamelist
     """
     try:
         url_picture_name = re.compile(r'<posts.*?<a.*?target="_blank".*?href="(.*?)">.*?<img.*?data-src="(.*?)"\salt="(.*?)".*?>', re.S)
@@ -67,56 +63,12 @@ def parse_list_html(html,page):
                 'picture':picture,
                 'name':name.rstrip('-量子ACG')
             })
-        logging.info(f'网页第{page}解析完成......')
+        logging.info('数据生成成功.....（待保存到文件中）')
         yield list_game
-
-
-
-def parse_much_gal_list(list_game):
-    """
-    对每一页的游戏列表数据进行分析
-    :return 返回每一游戏的url地址
-    """
-    for game in list_game:
-        gal_name = game['name']
-        gal_url = game['url']
-        yield {'gal_name':gal_name,'gal_url':gal_url}
-
-
-
-def parse_detail_galgame_wed(game_information):
-    """
-    对每一个gal游戏页面进行请求
-    :param game_information:
-    :return: gal的html源码
-    """
-    gal_url = game_information['gal_url']
-    gal_data = requests.get(gal_url,headers=headers)
-    gal_html = gal_data.text
-    return gal_html
-
-
-def parse_detail_galgame_data(html):
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 def save_url_data(list_game,page):
     os.chdir('..\\资料文件')
     None if os.path.exists('量子acg平台数据(上)') else os.makedirs('量子acg平台数据(上)')
-
-    json_data = json.dumps(list_game,ensure_ascii=False)
-    print(json_data)
 
     try:
         json.dump(list_game,open(f'量子acg平台数据(上)\\page{page}.json','w',encoding='utf-8'),ensure_ascii=False,indent=4)
@@ -134,12 +86,8 @@ if __name__ == "__main__":
     for page in range(1,total_page_num+1):
         page_url = list_url(page)
         page_html = parse_list_url(page_url)
-        for game_list in parse_list_html(page_html):
-            save_url_data(game_list,page)
-
-
-
-
+        game_list = list(parse_list_html(page_html))
+        save_url_data(game_list,page)
 
 
 

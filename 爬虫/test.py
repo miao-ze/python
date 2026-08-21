@@ -279,12 +279,37 @@ import re
 
 
 
-# headers = {'Cookies':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36 Edg/146.0.0.0'}
+headers = {'Cookies':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36 Edg/146.0.0.0'}
 # res = requests.get('https://lzacg.cc/11030',headers=headers)
 
-galgame_detail = re.compile(r'',re.S)
+from lxml import etree
 
-if __name__ == "__main__":
-    with open('资料文件\\lzacg2.html', 'r', encoding='utf-8') as f:
-       data = f.read()
-       re.search(galgame_detail,data)
+
+# with open('资料文件\\lzacg_detail.html', 'r', encoding='utf-8') as f:
+#    data = f.read()
+
+# data = requests.get('https://lzacg.cc/11026')
+# with open('资料文件\\lzacg_detail.html', 'w', encoding='utf-8') as f:
+#    f.write(data.text)
+
+# html = etree.HTML(data)
+# gal = html.xpath('//h4[@class="wp-block-heading"][1]/following-sibling::p/text()')
+# print(gal)
+
+
+
+
+
+data = requests.get('https://lzacg.cc/11029',headers=headers)
+html = data.text
+html2 = etree.HTML(html)
+# 第一个h4之后、第二个h4之前的所有p
+xp = '''//div[contains(@class, "wp-posts-content")]
+        /h4[@class="wp-block-heading"][1]
+        /following-sibling::p[preceding‑sibling::h4[1]=current()]//text()'''
+
+
+p_nodes = html2.xpath(xp)
+print(p_nodes)
+
+# print('\n'.join(p_nodes[:-2]))
