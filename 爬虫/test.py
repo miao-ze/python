@@ -300,16 +300,17 @@ from lxml import etree
 
 
 
-data = requests.get('https://lzacg.cc/11029',headers=headers)
+data = requests.get('https://lzacg.cc/10000',headers=headers)
 html = data.text
 html2 = etree.HTML(html)
 # 第一个h4之后、第二个h4之前的所有p
-xp = '''//div[contains(@class, "wp-posts-content")]
-        /h4[@class="wp-block-heading"][1]
-        /following-sibling::p[preceding‑sibling::h4[1]=current()]//text()'''
+
+xp2 = '''(//div[contains(@class,"wp-posts-content")]/h4[@class="wp-block-heading"])[1]
+/following-sibling::p[count(preceding-sibling::h4[@class="wp-block-heading"])=1]/text()'''
 
 
-p_nodes = html2.xpath(xp)
-print(p_nodes)
+p_nodes = html2.xpath('//title/text()')
+# print(p_nodes[0].rstrip('-量子ACG'))
 
-# print('\n'.join(p_nodes[:-2]))
+p_nodes2 = html2.xpath('//link[@rel="canonical"]/@href')[0]
+print(p_nodes2)
