@@ -300,17 +300,43 @@ from lxml import etree
 
 
 
-data = requests.get('https://lzacg.cc/10000',headers=headers)
-html = data.text
-html2 = etree.HTML(html)
+# data = requests.get('https://lzacg.cc/10000',headers=headers)
+# html = data.text
+# html2 = etree.HTML(html)
 # 第一个h4之后、第二个h4之前的所有p
 
-xp2 = '''(//div[contains(@class,"wp-posts-content")]/h4[@class="wp-block-heading"])[1]
-/following-sibling::p[count(preceding-sibling::h4[@class="wp-block-heading"])=1]/text()'''
+# xp2 = '''(//div[contains(@class,"wp-posts-content")]/h4[@class="wp-block-heading"])[1]
+# /following-sibling::p[count(preceding-sibling::h4[@class="wp-block-heading"])=1]/text()'''
 
 
-p_nodes = html2.xpath('//title/text()')
+# p_nodes = html2.xpath('//title/text()')
 # print(p_nodes[0].rstrip('-量子ACG'))
 
-p_nodes2 = html2.xpath('//link[@rel="canonical"]/@href')[0]
-print(p_nodes2)
+# p_nodes2 = html2.xpath('//link[@rel="canonical"]/@href')[0]
+# print(p_nodes2)
+
+
+
+
+from bs4 import BeautifulSoup
+
+
+# res = requests.get('https://lzacg.cc/category/galgame/page/2',headers=headers)
+# data = res.text
+# soup = BeautifulSoup(data,'lxml')
+# print(soup.posts.div.a['href'])
+# urls = soup.select('.posts-item.ajax-item.card .item-thumbnail a')
+# list1 = [url['href'] for url in urls]
+# print(list1)
+
+
+res = requests.get('https://lzacg.cc/11019',headers=headers)
+data = res.text
+
+# soup = BeautifulSoup(data,'lxml')
+# img = soup.find(name='figure').find('img')
+# print(img['src'])
+
+html = etree.HTML(data)
+img_ele = html.find(".//figure/img").get('src')
+print(img_ele)

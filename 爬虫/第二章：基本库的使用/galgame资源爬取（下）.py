@@ -1,14 +1,16 @@
 import logging
-import re
 import os
 import json
 import time
 
 import requests
 from urllib import parse,error
-import multiprocessing
+from multiprocessing import Pool
+from bs4 import BeautifulSoup
 from lxml import etree
 
+
+base_url = 'https://lzacg.cc'
 
 logging.basicConfig(
     level=logging.INFO,
@@ -16,12 +18,8 @@ logging.basicConfig(
 )
 
 headers = {
-    'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36 Edg/146.0.0.0'
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36 Edg/146.0.0.0'
 }
-
-base_url = 'https://lzacg.cc'
-total_page_num = 4
-
 
 # 1
 def list_url(page):
@@ -44,7 +42,7 @@ def parse_list_url(page_url):
     except error.HTTPError as e:
         logging.error(f'请求失败：{e.reason}')
     else:
-        logging.info(f'网页请求成功...')
+        logging.info(f'网页请求成功...(后采集)')
         return res.text
 
 
@@ -55,17 +53,14 @@ def parse_list_html(html):
         :return 每个gal游戏的名字、图片、链接地址
     """
     try:
-        url_picture_name = re.compile(r'<posts.*?<a.*?target="_blank".*?href="(.*?)">.*?<img.*?data-src="(.*?)"\salt="(.*?)".*?>', re.S)
-        results = re.finditer(url_picture_name,html)
+        soup = BeautifulSoup(html,'lxml')
+        urls = soup.select('.posts-item.ajax-item.card .item-thumbnail a')
     except Exception as e:
-        logging.error(f'正则匹配失败{e}')
+        logging.error('网页数据提取失败')
     else:
-        list_game = []
-        for result in results:
-            url = result.group(1)
-            list_game.append(url)
-        logging.info(f'该网页第解析完成:(上)')
-        return list_game
+        page_galgame_url = [url['href'] for url in urls]
+        logging.info('该网页数据解析完成.....（即将对每个游戏进行请求）')
+        return page_galgame_url
 
 
 
@@ -76,13 +71,8 @@ def parse_detail_galgame_wed(url):
     :param url 游戏地址
     :return: gal的html源码
     """
-    try:
-        gal_data = requests.get(url,headers=headers)
-    except requests.HTTPError as e:
-        logging.error(f'游戏页面请求失败{e}')
-    else:
-        gal_html = gal_data.text
-        return gal_html
+    game_html = parse_list_url(url)
+    return game_html
 
 
 # 5
@@ -106,8 +96,10 @@ def parse_detail_galgame_data(html):
 
     url_galgame = data.xpath('//link[@rel="canonical"]/@href')[0]
 
-    logging.info('收集中......')
-    return [{"name":name_galgame,"地址":url_galgame,"describe":describe_galgame}]
+    img_galgame = data.find(".//figure/img").get('src')
+
+    logging.info('完成...')
+    return {"游戏名称":name_galgame,"地址":url_galgame,"描述":describe_galgame,'图片':img_galgame}
 
 
 # 6
@@ -129,20 +121,40 @@ def save_document(data,page):
         logging.info('文件保存成功')
 
 
+def main(page):
+    page_url = list_url(page)
+    page_html = parse_list_url(page_url)
+    page_list = []
+    for game_url in parse_list_html(page_html):   # 这是一个生成器：返回所有游戏的主页连接，列表，元素是url地址
+        # 通过url来查找游戏的html源码
+        game_html = parse_detail_galgame_wed(game_url)
+        # 对源码进行解析，得到name、url和describe
+        galgame_data = parse_detail_galgame_data(game_html)
+        page_list.append(galgame_data)
+    # 进行保存
+    save_document(page_list,page)
+
+
+
 
 if __name__ == "__main__":
-    for page in range(1,total_page_num+1):
-        page_url = list_url(page)
-        page_html = parse_list_url(page_url)
-        page_list = []
-        for game_url in parse_list_html(page_html):   # 这是一个生成器：返回所有游戏的主页连接，列表，元素是url地址
-            # 通过url来查找游戏的html源码
-            game_html = parse_detail_galgame_wed(game_url)
-            # 对源码进行解析，得到name、url和describe
-            galgame_data = parse_detail_galgame_data(game_html)
-            page_list.append(galgame_data)
-        # 进行保存
-        save_document(page_list,page)
+
+    start_time = time.time()
+
+    total_page_num = 65
+
+    pool = Pool(processes=10)
+    result_obj = pool.map_async(main,range(1,total_page_num+1))
+
+    # 真正等待结果（这一步才阻塞）
+    all_result = result_obj.get()
+
+    pool.close()
+    pool.join()
+
+    print(f'完成采集用时：{time.time() - start_time}')
+
+
 
 
 
