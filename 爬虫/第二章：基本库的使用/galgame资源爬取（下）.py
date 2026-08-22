@@ -95,8 +95,11 @@ def parse_detail_galgame_data(html):
     name_galgame = name[0].rstrip('-量子ACG')
 
     url_galgame = data.xpath('//link[@rel="canonical"]/@href')[0]
-
-    img_galgame = data.find(".//figure/img").get('src')
+    try:
+        img_galgame = data.find(".//figure/img").get('src')
+    except Exception as e:
+        print('图片地址解析错误')
+        return None
 
     logging.info('完成...')
     return {"游戏名称":name_galgame,"地址":url_galgame,"描述":describe_galgame,'图片':img_galgame}
@@ -146,9 +149,11 @@ if __name__ == "__main__":
     pool = Pool(processes=10)
     result_obj = pool.map_async(main,range(1,total_page_num+1))
 
-    # 真正等待结果（这一步才阻塞）
-    all_result = result_obj.get()
-
+    try:
+        # 设置总超时120秒，超过直接报错，不会无限挂住
+        all_result = result_obj.get(timeout=60)
+    except Exception as e:
+        print(f"等待任务超时/异常：{e}，完成采集用时：{time.time() - start_time}")
     pool.close()
     pool.join()
 
